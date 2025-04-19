@@ -55,33 +55,76 @@ This approach simplifies deployment while maintaining structured data representa
 
 ## Usage
 
-### 1. Add user documentation
+### Running the Test Suite (Recommended)
 
-Place your AI system documentation in the `data/user_docs` directory. Supported formats:
-- PDF files
-- Text files (.txt)
-- Markdown files (.md)
-- HTML files (.html, .htm)
-
-### 2. Run the analysis pipeline
+The most reliable way to use this tool is through the test suite, which includes pre-defined sample cases:
 
 ```
-python -m src.main --system-name "Your AI System Name"
+./run_implementation.sh
 ```
 
 Options:
-- `--system-name`: Name of your AI system (default: "AI System")
-- `--force`: Force reprocessing of documents
-- `--skip-eu-ai-act`: Skip EU AI Act processing (use existing embeddings)
+- `--force-embeddings`: Force regeneration of embeddings for the EU AI Act
+- `--skip-retrieval`: Skip semantic retrieval and use mock analysis (useful if Pinecone is not configured)
 
-### 3. View the results
+Example:
+```
+./run_implementation.sh --skip-retrieval
+```
 
-The compliance report will be generated in the `output` directory as a Word document (.docx) with:
-- Executive summary
-- Overall compliance score
-- Detailed analysis by category
-- Compliance gaps
-- Recommendations
+This will:
+1. Process the EU AI Act PDF
+2. Run test cases for different AI system types (prohibited, high-risk, limited-risk, minimal-risk)
+3. Generate compliance reports in the output directory
+
+### Custom User Documentation Flow (Experimental/Untested)
+
+> **Note:** The custom user documentation flow is currently experimental and has not been thoroughly tested.
+
+To analyze your own AI system documentation:
+
+1. Add user documentation to the `data/user_docs` directory. Supported formats:
+   - PDF files
+   - Text files (.txt)
+   - Markdown files (.md)
+   - HTML files (.html, .htm)
+
+2. Run the analysis pipeline:
+   ```
+   python -m src.main --system-name "Your AI System Name"
+   ```
+
+   Options:
+   - `--system-name`: Name of your AI system (default: "AI System")
+   - `--force`: Force reprocessing of documents
+   - `--skip-eu-ai-act`: Skip EU AI Act processing (use existing embeddings)
+
+3. View the results in the `output` directory
+
+## Docker Usage
+
+You can also run the compliance analysis tool in a Docker container:
+
+1. Build the Docker image:
+   ```
+   docker build -t eu-ai-act-compliance .
+   ```
+
+2. Run the test suite with semantic retrieval (requires proper Pinecone setup):
+   ```
+   docker run --rm -v $(pwd)/data:/app/data -v $(pwd)/output:/app/output eu-ai-act-compliance --debug
+   ```
+
+3. Run the test suite without semantic retrieval (uses mock analysis):
+   ```
+   docker run --rm -v $(pwd)/data:/app/data -v $(pwd)/output:/app/output eu-ai-act-compliance --debug --skip-retrieval
+   ```
+
+The container will:
+- Create test cases in the data/user_docs directory
+- Run compliance analysis on each test case
+- Generate comprehensive reports in the output directory
+- Organize results by risk category (prohibited, high-risk, limited-risk, minimal-risk)
 
 ## How It Works
 

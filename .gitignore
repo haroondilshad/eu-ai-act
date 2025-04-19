@@ -51,9 +51,7 @@ data/eu_ai_act_processed/
 data/processed_user_docs/
 
 # Large text and PDF files
-EU-Ai-Act.pdf
 EU-Ai-Act.txt
-prompts.pdf
 prompts.txt
 
 # Local configuration

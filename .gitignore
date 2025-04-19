@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+output/
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.zip
+
+# Data files
+data/processed/
+data/embeddings/
+data/raw/
+data/eu_ai_act_processed/
+data/processed_user_docs/
+
+# Large text and PDF files
+EU-Ai-Act.pdf
+EU-Ai-Act.txt
+prompts.pdf
+prompts.txt
+
+# Local configuration
+.env.local
+.env
+
+# Docker
+.docker/
+
+# Cache files
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Database
+*.sqlite
+*.db
+
+# Pinecone and other service credentials
+pinecone_index/
+
+# Temporary files
+tmp/
+temp/
+
+# Reports and generated files
+output/reports/ 

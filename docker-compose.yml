@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  eu-ai-act-compliance:
+    build: .
+    image: eu-ai-act-compliance:latest
+    container_name: eu-ai-act-compliance
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./.env:/app/.env
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: ["--system-name", "AI System"]
+    networks:
+      - eu-ai-act-net
+
+  # Optional MongoDB service (uncomment if using MongoDB)
+  # mongodb:
+  #   image: mongo:5
+  #   container_name: mongodb
+  #   restart: unless-stopped
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME:-admin}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD:-password}
+  #   volumes:
+  #     - mongodb-data:/data/db
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - eu-ai-act-net
+
+networks:
+  eu-ai-act-net:
+    driver: bridge
+
+# Uncomment if using MongoDB
+# volumes:
+#   mongodb-data: 
